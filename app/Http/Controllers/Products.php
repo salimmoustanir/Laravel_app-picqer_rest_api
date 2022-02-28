@@ -147,7 +147,7 @@ $Products=Product::all();
     if ($validator->fails()) {
         return response()->json($validator);
     }
-               $subDomain = 'fairweb';
+       $subDomain = 'fairweb';
        $apiKey = 'lhxORib7i45X27mj2rO8PnT3uh9ei9BGzS28t41r3GRGZRsC';
        $apiClient = new Client($subDomain, $apiKey);
        $apiClient->enableRetryOnRateLimitHit();
@@ -164,4 +164,104 @@ $Products=Product::all();
     $prod=Product::where('idproduct', $request->idproduct)->delete();
     return response()->json('inactivated successfully');
    }
+   
+   // 3rd question
+   public function GetstockProduct(Request $request){
+           $rules = [
+        "idproduct" => "required",
+    ];
+
+    $validator = Validator::make($request->all(), $rules);
+    if ($validator->fails()) {
+        return response()->json($validator);
+    }
+       $subDomain = 'fairweb';
+       $apiKey = 'lhxORib7i45X27mj2rO8PnT3uh9ei9BGzS28t41r3GRGZRsC';
+       $apiClient = new Client($subDomain, $apiKey);
+       $apiClient->enableRetryOnRateLimitHit();
+       $apiClient->setUseragent('picqer.com/api - support@picqer.com');
+       $stock= $apiClient->getProductStock($request->idproduct);
+       
+       return response()->json($stock);
+   }
+      public function UpdateStockProduct(Request $request){
+           $rules = [
+        "idproduct" => "required",
+        "idwarehouse" => "required",
+        "amount" => "required",
+        "reason" => "required",
+    ];
+
+    $validator = Validator::make($request->all(), $rules);
+    if ($validator->fails()) {
+        return response()->json($validator);
+    }
+       $subDomain = 'fairweb';
+       $apiKey = 'lhxORib7i45X27mj2rO8PnT3uh9ei9BGzS28t41r3GRGZRsC';
+       $apiClient = new Client($subDomain, $apiKey);
+       $apiClient->enableRetryOnRateLimitHit();
+       $apiClient->setUseragent('picqer.com/api - support@picqer.com');
+       
+       $data = [
+    'amount' => $request->amount,
+    'reason' => $request->reason
+];
+       $stock= $apiClient->updateProductStockForWarehouse($request->idproduct,$request->idwarehouse,$data);
+       
+       return response()->json($stock);
+   }
+   
+         public function DeleteStockProduct(Request $request){
+           $rules = [
+        "idproduct" => "required",
+        "idwarehouse" => "required",
+        "value" => 'required',
+        "reason" => "required",
+    ];
+
+    $validator = Validator::make($request->all(), $rules);
+    if ($validator->fails()) {
+        return response()->json($validator);
+    }
+       $subDomain = 'fairweb';
+       $apiKey = 'lhxORib7i45X27mj2rO8PnT3uh9ei9BGzS28t41r3GRGZRsC';
+       $apiClient = new Client($subDomain, $apiKey);
+       $apiClient->enableRetryOnRateLimitHit();
+       $apiClient->setUseragent('picqer.com/api - support@picqer.com');
+       
+       $data = [
+    'change' => $request->value,
+    'reason' => $request->reason
+];
+       $stock= $apiClient->updateProductStockForWarehouse($request->idproduct,$request->idwarehouse,$data);
+       
+       return response()->json($stock);
+   }
+            public function AddStockProduct(Request $request){
+           $rules = [
+        "idproduct" => "required",
+        "idwarehouse" => "required",
+        "value" => 'required',
+        "reason" => "required",
+    ];
+
+    $validator = Validator::make($request->all(), $rules);
+    if ($validator->fails()) {
+        return response()->json($validator);
+    }
+       $subDomain = 'fairweb';
+       $apiKey = 'lhxORib7i45X27mj2rO8PnT3uh9ei9BGzS28t41r3GRGZRsC';
+       $apiClient = new Client($subDomain, $apiKey);
+       $apiClient->enableRetryOnRateLimitHit();
+       $apiClient->setUseragent('picqer.com/api - support@picqer.com');
+       
+       $data = [
+    'change' => $request->value,
+    'reason' => $request->reason
+];
+       $stock= $apiClient->updateProductStockForWarehouse($request->idproduct,$request->idwarehouse,$data);
+       
+       return response()->json($stock);
+   }
+   
 }
