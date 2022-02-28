@@ -36,3 +36,16 @@ Route::group([],function(){
 Route::group([],function(){
     Route::get('inactivateProduct',[Products::class,'inactivateProduct']);
 });
+
+Route::group([],function(){
+    Route::get('GetstockProduct',[Products::class,'GetstockProduct']);
+});
+Route::group([],function(){
+    Route::post('AddStockProduct',[Products::class,'AddStockProduct']);
+});
+Route::group([],function(){
+    Route::post('UpdateStockProduct',[Products::class,'UpdateStockProduct']);
+});
+Route::group([],function(){
+    Route::post('DeleteStockProduct',[Products::class,'DeleteStockProduct']);
+});
